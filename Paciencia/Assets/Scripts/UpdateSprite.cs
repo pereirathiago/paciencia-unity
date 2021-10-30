@@ -18,6 +18,7 @@ public class UpdateSprite : MonoBehaviour
     {
         List<string> baralho = Paciencia.GerarBaralho();
         paciencia = FindObjectOfType<Paciencia>();
+        userInput = FindObjectOfType<UserInput>();
 
         int i = 0;
         foreach (string carta in baralho)
@@ -46,12 +47,17 @@ public class UpdateSprite : MonoBehaviour
         {
             spriteRenderer.sprite = cardBack;
         }
-        if(name == userInput.slot1.name)
+
+        if(userInput.slot1)
         {
-            spriteRenderer.color = Color.yellow;
-        } else
-        {
-            spriteRenderer.color = Color.white;
+            if(name == userInput.slot1.name)
+            {
+                spriteRenderer.color = Color.yellow;
+            } else
+            {
+                spriteRenderer.color = Color.white;
+            }
         }
+
     }
 }

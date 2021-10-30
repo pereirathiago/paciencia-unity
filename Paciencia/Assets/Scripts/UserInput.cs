@@ -65,9 +65,19 @@ public class UserInput : MonoBehaviour
         // click no carta
         print("clicou no carta");
 
-        if (slot1 = this.gameObject)
+        if (slot1 == this.gameObject)
         {
             slot1 = selected;
+        } 
+        else if (slot1 != selected)
+        {
+            if(Stackable(selected))
+            {
+                // pilha isso
+            } else
+            {
+                slot1 = selected;
+            }
         }
     }
     void Top()
@@ -79,5 +89,52 @@ public class UserInput : MonoBehaviour
     {
         // click no bottom
         print("clicou no bottom");
+    }
+
+    bool Stackable(GameObject selected)
+    {
+        Selecionado s1 = slot1.GetComponent<Selecionado>();
+        Selecionado s2 = selected.GetComponent<Selecionado>();
+        if(s2.top)
+        {
+            if(s1.suit == s2.suit || (s1.value == 1 && s2.suit == null))
+            {
+                if(s1.value == s2.value + 1)
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        } else
+        {
+            if(s1.value == s2.value - 1)
+            {
+                bool card1Red = true;
+                bool card2Red = true;
+
+                if(s1.suit == "C" || s1.suit == "S")
+                {
+                    card1Red = false;
+                }
+                if (s2.suit == "C" || s2.suit == "S")
+                {
+                    card2Red = false;
+                }
+
+                if(card1Red == card2Red)
+                {
+                    print("nao pilhavel");
+                    return false;
+                } else
+                {
+                    print("pilhavel");
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

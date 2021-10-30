@@ -96,6 +96,7 @@ public class Paciencia : MonoBehaviour
                 yield return new WaitForSeconds(0.05f);
                 GameObject novaCarta = Instantiate(cardPrefab, new Vector3(bottomPos[i].transform.position.x, bottomPos[i].transform.position.y - yOffset, bottomPos[i].transform.position.z - zOffset), Quaternion.identity, bottomPos[i].transform);
                 novaCarta.name = carta;
+                novaCarta.GetComponent<Selecionado>().row = i;
 
                 if (carta == bottoms[i][bottoms[i].Count - 1]) 
                 {
@@ -189,6 +190,8 @@ public class Paciencia : MonoBehaviour
                 newTopCard.name = cartas;
                 tripsOnDisplay.Add(cartas);
                 newTopCard.GetComponent<Selecionado>().faceCima = true;
+                newTopCard.GetComponent<Selecionado>().inDeckPile = true;
+
             }
             deckLocation++;
         }
