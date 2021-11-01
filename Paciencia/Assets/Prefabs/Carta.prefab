@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 1b5edfaa43a45d342b122c301a8184e0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2a981de50bdf68346952742386675e2e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardFace: {fileID: 0}
-  cardBack: {fileID: 21300000, guid: 1b5edfaa43a45d342b122c301a8184e0, type: 3}
+  cardBack: {fileID: 21300000, guid: 2a981de50bdf68346952742386675e2e, type: 3}
 --- !u!114 &405026503
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -112,7 +112,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bde832a87bd025141b5aac32db6dbe5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  top: 0
+  suit: 
+  value: 0
+  row: 0
   faceCima: 0
+  inDeckPile: 0
 --- !u!50 &7666461476448565357
 Rigidbody2D:
   serializedVersion: 4
@@ -149,7 +154,7 @@ BoxCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: -0.035513878, y: 0.054744244}
   m_SpriteTilingProperty:
-    border: {x: 4.16, y: 0.76, z: 4.0899997, w: 0.65999997}
+    border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 20.48, y: 20.48}
     newSize: {x: 20.48, y: 20.48}

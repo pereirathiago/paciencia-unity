@@ -47,6 +47,10 @@ public class Paciencia : MonoBehaviour
 
     public void JogarCartas()
     {
+        foreach (List<string> list in bottoms)
+        {
+            list.Clear();
+        }
         baralho = GerarBaralho();
         Embaralhar(baralho);
         foreach (string carta in baralho)

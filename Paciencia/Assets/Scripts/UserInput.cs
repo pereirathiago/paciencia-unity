@@ -8,6 +8,9 @@ public class UserInput : MonoBehaviour
     public GameObject slot1;
 
     private Paciencia paciencia;
+    private float timer;
+    private float doubleClickTime = 0.3f;
+    private int clickCount = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -19,6 +22,21 @@ public class UserInput : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(clickCount == 1)
+        {
+            timer += Time.deltaTime;
+        }
+        if(clickCount == 3)
+        {
+            timer = 0;
+            clickCount = 1;
+        }
+        if(timer > doubleClickTime)
+        {
+            timer = 0;
+            clickCount = 0;
+        }
+
         GetMouseClick();
     }
 
@@ -26,6 +44,7 @@ public class UserInput : MonoBehaviour
     {
         if(Input.GetMouseButtonDown(0))
         {
+            clickCount++;
             Vector3 mousePosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, -10));
             RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
             if(hit)
@@ -79,11 +98,13 @@ public class UserInput : MonoBehaviour
         {
             if (!Blocked(selected))
             {
-                slot1 = selected;
-            }
-            if (!Blocked(selected))
-            {
                 if (slot1 == selected)
+                {
+                    if (DoubleClick())
+                    {
+                        AutoStack(selected);
+                    }
+                } else
                 {
                     slot1 = selected;
                 }
@@ -105,6 +126,14 @@ public class UserInput : MonoBehaviour
                 else
                 {
                     slot1 = selected;
+                }
+            } 
+            
+            else if (slot1 == selected)
+            {
+                if(DoubleClick())
+                {
+                    AutoStack(selected);
                 }
             }
         }
@@ -252,6 +281,81 @@ public class UserInput : MonoBehaviour
             {
                 return true;
             }
+        }
+    }
+
+    bool DoubleClick()
+    {
+        if(timer < doubleClickTime && clickCount == 2)
+        {
+            print("Double click");
+            return true;
+        } else
+        {
+            return false;
+        }
+    }
+
+    void AutoStack(GameObject selected)
+    {
+        for(int i= 0; i < paciencia.topPos.Length; i++)
+        {
+            Selecionado stack = paciencia.topPos[i].GetComponent<Selecionado>();
+            if(selected.GetComponent<Selecionado>().value == 1)
+            {
+                if(paciencia.topPos[i].GetComponent<Selecionado>().value == 0)
+                {
+                    slot1 = selected;
+                    Stack(stack.gameObject);
+                    break;
+                }
+            } 
+            else
+            {
+                if((paciencia.topPos[i].GetComponent<Selecionado>().suit == slot1.GetComponent<Selecionado>().suit) && (paciencia.topPos[i].GetComponent<Selecionado>().value == slot1.GetComponent<Selecionado>().value - 1))
+                {
+                    if (HasNoChildren(slot1))
+                    {
+                        slot1 = selected;
+                        string lastCardName = stack.suit + stack.value.ToString();
+                        if (stack.value == 1)
+                        {
+                            lastCardName = stack.suit + "A";
+                        }
+                        if (stack.value == 11)
+                        {
+                            lastCardName = stack.suit + "J";
+                        }
+                        if (stack.value == 12)
+                        {
+                            lastCardName = stack.suit + "Q";
+                        }
+                        if (stack.value == 13)
+                        {
+                            lastCardName = stack.suit + "K";
+                        }
+                        GameObject lastCard = GameObject.Find(lastCardName);
+                        Stack(lastCard);
+                        break;
+                    }
+                }
+            }
+        }
+    }
+    bool HasNoChildren(GameObject card)
+    {
+        int i = 0;
+        foreach(Transform child in card.transform)
+        {
+            i++;
+        }
+        if(i == 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 }
