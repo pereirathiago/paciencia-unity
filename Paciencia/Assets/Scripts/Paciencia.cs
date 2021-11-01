@@ -203,6 +203,7 @@ public class Paciencia : MonoBehaviour
 
     void RestackTopDeck()
     {
+        baralho.Clear();
         foreach(string carta in discardPile)
         {
             baralho.Add(carta);

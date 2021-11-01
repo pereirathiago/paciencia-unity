@@ -43,12 +43,12 @@ public class UserInput : MonoBehaviour
                 else if (hit.collider.CompareTag("Top"))
                 {
                     // clicou top
-                    Top();
+                    Top(hit.collider.gameObject);
                 }
                 else if (hit.collider.CompareTag("Bottom"))
                 {
                     // clicou bottom
-                    Bottom();
+                    Bottom(hit.collider.gameObject);
                 }
             }
         }
@@ -59,6 +59,8 @@ public class UserInput : MonoBehaviour
         // click no baralho
         print("clicou no baralho");
         paciencia.DealFromDeck();
+        slot1 = this.gameObject;
+
     }
     void Carta(GameObject selected)
     {
@@ -67,15 +69,15 @@ public class UserInput : MonoBehaviour
 
         if (!selected.GetComponent<Selecionado>().faceCima)
         {
-            if(!Blocked(selected))
+            if (!Blocked(selected))
             {
                 selected.GetComponent<Selecionado>().faceCima = true;
                 slot1 = this.gameObject;
             }
         }
-        else if(selected.GetComponent<Selecionado>().inDeckPile)
+        else if (selected.GetComponent<Selecionado>().inDeckPile)
         {
-            if(!Blocked(selected))
+            if (!Blocked(selected))
             {
                 slot1 = selected;
             }
@@ -83,35 +85,54 @@ public class UserInput : MonoBehaviour
             {
                 if (slot1 == selected)
                 {
-                   slot1 = selected;
+                    slot1 = selected;
                 }
             }
         }
-
-        if (slot1 == this.gameObject)
+        else
         {
-            slot1 = selected;
-        } 
-        else if (slot1 != selected)
-        {
-            if(Stackable(selected))
-            {
-                Stack(selected);
-            } else
+            if (slot1 == this.gameObject)
             {
                 slot1 = selected;
             }
+
+            else if (slot1 != selected)
+            {
+                if (Stackable(selected))
+                {
+                    Stack(selected);
+                }
+                else
+                {
+                    slot1 = selected;
+                }
+            }
         }
     }
-    void Top()
+    void Top(GameObject selected)
     {
         // click no top
         print("clicou no top");
+
+        if(slot1.CompareTag("Card"))
+        {
+            if(slot1.GetComponent<Selecionado>().value == 1)
+            {
+                Stack(selected);
+            }
+        }
     }
-    void Bottom()
+    void Bottom(GameObject selected)
     {
         // click no bottom
         print("clicou no bottom");
+        if(slot1.CompareTag("Card"))
+        {
+            if(slot1.GetComponent<Selecionado>().value == 13)
+            {
+                Stack(selected);
+            }
+        }
     }
 
     bool Stackable(GameObject selected)

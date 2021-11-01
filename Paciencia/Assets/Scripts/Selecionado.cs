@@ -22,10 +22,10 @@ public class Selecionado : MonoBehaviour
             for(int i = 1; i < transform.name.Length; i++)
             {
                 char c = transform.name[i];
-                valueString += c.ToString();
+                valueString = valueString + c.ToString();
             }
 
-            if(valueString == "A")
+            if (valueString == "A")
             {
                 value = 1;
             }
