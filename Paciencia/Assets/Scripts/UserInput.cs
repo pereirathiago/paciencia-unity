@@ -248,6 +248,8 @@ public class UserInput : MonoBehaviour
         {
             paciencia.topPos[s1.row].GetComponent<Selecionado>().value = s1.value;
             paciencia.topPos[s1.row].GetComponent<Selecionado>().suit = s1.suit;
+            s2.value = s1.value;
+            s2.suit = s1.suit;
             s1.top = true;
         } else
         {

@@ -32,6 +32,8 @@ public class Paciencia : MonoBehaviour
     private int trips;
     private int tripsRemainder;
 
+    public int qtdCards;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -136,20 +138,20 @@ public class Paciencia : MonoBehaviour
 
     public void SortDeckIntoTrips()
     {
-        trips = baralho.Count / 3;
-        tripsRemainder = baralho.Count % 3;
+        trips = baralho.Count / qtdCards;
+        tripsRemainder = baralho.Count % qtdCards;
         barlhoTrips.Clear();
 
         int modifier = 0;
         for (int i = 0; i < trips; i++)
         {
             List<string> myTrips = new List<string>();
-            for (int j = 0; j < 3; j++)
+            for (int j = 0; j < qtdCards; j++)
             {
                 myTrips.Add(baralho[j + modifier]);
             }
             barlhoTrips.Add(myTrips);
-            modifier += 3;
+            modifier += qtdCards;
         }
 
         if ( tripsRemainder != 0)
