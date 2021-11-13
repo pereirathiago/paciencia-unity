@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: afc256e0534b34b449ded23b88be3997
+  - enabled: 1
+    path: Assets/Scenes/PacienciaInic.unity
+    guid: d798bacfb856039479a2d39943ab6b53
+  - enabled: 1
+    path: Assets/Scenes/SolitaireGame.unity
+    guid: 7aee90f4bfc1e894d9eb9e82416162d0
+  m_configObjects: {}
